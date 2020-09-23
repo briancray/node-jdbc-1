@@ -1,5 +1,5 @@
 {
-  "name": "@bcray/jdbc",
+  "name": "bcray-jdbc-fork",
   "version": "0.12.0",
   "description": "use jdbc from node",
   "main": "./lib/index.js",
