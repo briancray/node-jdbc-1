@@ -27,6 +27,7 @@ export class ResultSet {
 
   constructor (resultSet: IResultSet) {
     this.resultSet = resultSet as IResultSet
+    this.metas: IColumnMetaData[] = this.getMetaData().getAllColumnMeta()
   }
 
   next () {
@@ -38,11 +39,10 @@ export class ResultSet {
   }
 
   fetchResult (): IFetchResult {
-    const metas: IColumnMetaData[] = this.getMetaData().getAllColumnMeta()
     const result: IFetchResult = {}
 
-    for (let i = 0; i < metas.length; i++) {
-      const meta: IColumnMetaData = metas[i]
+    for (let i = 0; i < this.metas.length; i++) {
+      const meta: IColumnMetaData = this.metas[i]
       const getterName = 'get' + meta.type.name + 'Sync'
       if (typeof this.resultSet[getterName] !== 'function') {
         throw new Error(`Unknown type getter (${getterName}) for ${meta.type.name} for column ${meta.name} (${meta.label})`)

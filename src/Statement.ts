@@ -1,4 +1,5 @@
 import * as Promise from 'bluebird'
+
 import { IResultSet, ResultSet } from './ResultSet'
 
 export interface IStatement {
@@ -20,9 +21,9 @@ export class Statement {
 
   constructor (statement) {
     this.statement = Promise.promisifyAll(statement, {
-        filter(name, _, __, passesDefaultFilter) {
-            return passesDefaultFilter && !name.endsWith('Async')
-        },
+      filter: (name, _, __, passesDefaultFilter) => {
+        return passesDefaultFilter && !name.endsWith('Async')
+      }
     }) as IStatement
   }
 
