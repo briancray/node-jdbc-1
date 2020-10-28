@@ -24,10 +24,11 @@ export type IFetchResult = {}
 
 export class ResultSet {
   private resultSet: IResultSet
+  private metas: IColumnMetaData[]
 
   constructor (resultSet: IResultSet) {
     this.resultSet = resultSet as IResultSet
-    this.metas: IColumnMetaData[] = this.getMetaData().getAllColumnMeta()
+    this.metas = this.getMetaData().getAllColumnMeta()
   }
 
   next () {
