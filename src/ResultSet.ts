@@ -48,17 +48,17 @@ export class ResultSet {
       if (typeof this.resultSet[getterName] !== 'function') {
         throw new Error(`Unknown type getter (${getterName}) for ${meta.type.name} for column ${meta.name} (${meta.label})`)
       }
+      const value = this.resultSet[getterName](meta.label)
 
       switch (true) {
         case meta.type.name === 'Date' || meta.type.name === 'Time' || meta.type.name === 'Timestamp':
-          const dateValue = this.resultSet[`${getterName}`](meta.label)
-          result[meta.label] = dateValue ? _.toString(dateValue) : null
+          result[meta.label] = value ? value.toString() : null
           break
-        case meta.type.name === 'Int' && _.isNull(this.resultSet.getObjectSync(meta.label)):
+        case meta.type.name === 'Int' && value == null:
           result[meta.label] = null
           break
         default:
-          result[meta.label] = this.resultSet[`${getterName}`](meta.label)
+          result[meta.label] = value
           break
       }
     }
