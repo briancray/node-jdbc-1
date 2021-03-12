@@ -3,6 +3,7 @@ import * as _ from 'lodash'
 import { IColumnMetaData, IResultSetMetaData, ResultSetMetaData } from './ResultSetMetaData'
 
 export interface IResultSet {
+  wasNullSync(): boolean
   nextSync (): IResultSet
   getMetaDataSync (): IResultSetMetaData
 
