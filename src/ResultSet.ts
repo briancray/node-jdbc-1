@@ -51,11 +51,10 @@ export class ResultSet {
       const value = this.resultSet[getterName](meta.label)
 
       switch (true) {
+        case this.resultSet.wasNullSync():
+          result[meta.label] = null
         case meta.type.name === 'Date' || meta.type.name === 'Time' || meta.type.name === 'Timestamp':
           result[meta.label] = value ? value.toString() : null
-          break
-        case meta.type.name === 'Int' && value == null:
-          result[meta.label] = null
           break
         default:
           result[meta.label] = value
